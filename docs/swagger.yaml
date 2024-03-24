@@ -1,0 +1,345 @@
+definitions:
+  main.VariableSetDetail:
+    properties:
+      data:
+        properties:
+          attributes:
+            properties:
+              description:
+                type: string
+              global:
+                type: boolean
+              name:
+                type: string
+              priority:
+                type: boolean
+              project-count:
+                type: integer
+              updated-at:
+                type: string
+              var-count:
+                type: integer
+              workspace-count:
+                type: integer
+            type: object
+          id:
+            type: string
+          relationships:
+            properties:
+              organization:
+                properties:
+                  data:
+                    properties:
+                      id:
+                        type: string
+                      type:
+                        type: string
+                    type: object
+                type: object
+              projects:
+                properties:
+                  data:
+                    items: {}
+                    type: array
+                type: object
+              vars:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        id:
+                          type: string
+                        type:
+                          type: string
+                      type: object
+                    type: array
+                type: object
+              workspaces:
+                properties:
+                  data:
+                    items:
+                      properties:
+                        id:
+                          type: string
+                        type:
+                          type: string
+                      type: object
+                    type: array
+                type: object
+            type: object
+          type:
+            type: string
+        type: object
+    type: object
+  main.VariablesetList:
+    properties:
+      data:
+        items:
+          properties:
+            attributes:
+              properties:
+                description:
+                  type: string
+                global:
+                  type: boolean
+                name:
+                  type: string
+                priority:
+                  type: boolean
+                project-count:
+                  type: integer
+                updated-at:
+                  type: string
+                var-count:
+                  type: integer
+                workspace-count:
+                  type: integer
+              type: object
+            id:
+              type: string
+            relationships:
+              properties:
+                organization:
+                  properties:
+                    data:
+                      properties:
+                        id:
+                          type: string
+                        type:
+                          type: string
+                      type: object
+                  type: object
+                projects:
+                  properties:
+                    data:
+                      items:
+                        properties:
+                          id:
+                            type: string
+                          type:
+                            type: string
+                        type: object
+                      type: array
+                  type: object
+                vars:
+                  properties:
+                    data:
+                      items:
+                        properties:
+                          id:
+                            type: string
+                          type:
+                            type: string
+                        type: object
+                      type: array
+                  type: object
+                workspaces:
+                  properties:
+                    data:
+                      items:
+                        properties:
+                          id:
+                            type: string
+                          type:
+                            type: string
+                        type: object
+                      type: array
+                  type: object
+              type: object
+            type:
+              type: string
+          type: object
+        type: array
+      links:
+        properties:
+          first:
+            type: string
+          last:
+            type: string
+          next: {}
+          prev: {}
+          self:
+            type: string
+        type: object
+      meta:
+        properties:
+          pagination:
+            properties:
+              current-page:
+                type: integer
+              next-page: {}
+              page-size:
+                type: integer
+              prev-page: {}
+              total-count:
+                type: integer
+              total-pages:
+                type: integer
+            type: object
+        type: object
+    type: object
+info:
+  contact: {}
+paths:
+  /appendvariable/{varset_id}:
+    post:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: Agrega una nueva variable al conjunto de variables especificado
+      parameters:
+      - description: Token de autenticación
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: ID del conjunto de variables
+        in: path
+        name: varset_id
+        required: true
+        type: string
+      - description: Categoría de la variable (env/terraform)
+        in: formData
+        name: category
+        required: true
+        type: string
+      - description: Indica si la variable es sensible (true/false)
+        in: formData
+        name: sensitive
+        required: true
+        type: string
+      - description: Indica si la variable es de tipo HCL (true/false)
+        in: formData
+        name: hcl
+        required: true
+        type: string
+      - description: Clave de la variable
+        in: formData
+        name: key
+        required: true
+        type: string
+      - description: Valor de la variable
+        in: formData
+        name: value
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Agrega una nueva variable al conjunto de variables especificado
+      tags:
+      - TerraformCloud
+  /listvariablesets:
+    get:
+      consumes:
+      - application/json
+      description: Gather a list of variable sets with method "GET"
+      parameters:
+      - description: Token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: Organization Name
+        in: header
+        name: organization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.VariablesetList'
+      summary: Retrive list of a variable set
+      tags:
+      - TerraformCloud
+  /showvariable/{var_id}:
+    get:
+      consumes:
+      - application/json
+      description: Gather details of a variable
+      parameters:
+      - description: Token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: ID del conjunto de variables
+        in: path
+        name: var_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.VariableSetDetail'
+      summary: Shows details ofa specific variable
+      tags:
+      - TerraformCloud
+  /showvariableset/{varset_id}:
+    get:
+      consumes:
+      - application/json
+      description: Gather details of a variableset
+      parameters:
+      - description: Token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: Variableset ID
+        in: path
+        name: varset_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/main.VariableSetDetail'
+      summary: Shows the details of a specify variableset
+      tags:
+      - TerraformCloud
+  /updatevariable/{varset_id}:
+    patch:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: Update a variable value
+      parameters:
+      - description: Token
+        in: header
+        name: token
+        required: true
+        type: string
+      - description: Variableset ID
+        in: path
+        name: varset_id
+        required: true
+        type: string
+      - description: Variable key
+        in: formData
+        name: key
+        required: true
+        type: string
+      - description: Variable value
+        in: formData
+        name: value
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: Update a variable value
+      tags:
+      - TerraformCloud
+swagger: "2.0"
