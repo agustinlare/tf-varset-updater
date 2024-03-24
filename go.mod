@@ -1,4 +1,4 @@
-module github.com/agustinlare/varset-updater
+module github.com/agustinlare/tf-varset-updater
 
 go 1.20
 

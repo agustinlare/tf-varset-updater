@@ -40,9 +40,13 @@ The application swagger will be accesible at `http://localhost:8080`
 - `POST /api/v1/appendvariable/{varset_id}`: Appends a variable to a variable set.
 - `PATCH /api/v1/updatevariable/{varset_id}`: Updates the value of a variable in a variable set.
 
-## Swagger Documentation
+## Swagger
 
-Swagger documentation for this API is available at `http://localhost:8080/swagger/index.html`. It provides detailed information about each endpoint, including request parameters, response schemas, and example usage.
+Swagger for this API is available at `http://localhost:8080/swagger/index.html`. It provides detailed information about each endpoint, including request parameters, response schemas, and example usage.
+
+## Swagger documentation
+
+The command swag init is part of the swaggo/swag tool, used for integrating Swagger documentation into Go applications. When swag init is executed, the tool scans the Go project for files containing special Swagger-style comments and automatically generates a docs/docs.go file containing Swagger documentation in JSON format. This documentation is then used to generate the Swagger user interface (UI) that describes and documents the API endpoints.
 
 ### Terraform API Base URL
 

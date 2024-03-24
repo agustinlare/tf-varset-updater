@@ -1,7 +1,7 @@
 package main
 
 import (
-	docs "github.com/agustinlare/varset-updater/docs"
+	docs "github.com/agustinlare/tf-varset-updater/docs"
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
