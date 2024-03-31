@@ -25,6 +25,13 @@ func main() {
 			tfc.PATCH("/updatevariable/:varset_id", UpdateVariable)
 		}
 	}
+	r.GET("/health", HealthCheck)
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	r.Run(":8080")
+}
+
+func HealthCheck(c *gin.Context) {
+	c.JSON(200, gin.H{
+		"message": "OK",
+	})
 }
